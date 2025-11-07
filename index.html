@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Pendidikan Matematika Terpadu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===================================================================
+           1. STYLING UMUM DAN STRUKTUR
+           =================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #dce2d1; /* Background terang */
+            color: #333; 
+        }
+
+        /* HEADER & NAVIGASI (Sticky) */
+        header {
+            background-color: #4a90e2; /* Biru */
+            color: white;
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Container untuk Logo/Judul, Kontak, dan Navigasi */
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Agar responsif */
+            margin-bottom: 10px;
+        }
+
+        .header-title h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* Info Kontak di Header */
+        .header-contact {
+            font-size: 14px;
+            text-align: right;
+        }
+        .header-contact a {
+            color: white;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        nav {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            padding-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover { color: #ffdd57; }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto; 
+            padding: 0 20px;
+        }
+        
+        .section-padding { padding: 40px 0; }
+
+        /* ===================================================================
+           2. STYLING BAGIAN BERANDA (Tampilan Awal)
+           =================================================================== */
+        .hero {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+        .hero:hover { transform: translateY(-5px); }
+        .hero h1 { font-size: 36px; color: #333; margin-bottom: 20px; }
+        .hero p { font-size: 18px; color: #666; }
+        
+        /* ===================================================================
+           3. STYLING MATERI STATISTIKA
+           =================================================================== */
+        #materi-lain h2 {
+            color: #2e8b57; /* Hijau */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #materi-lain p {
+            background-color: #fff8dc; /* Krem */
+            padding: 15px;
+            border-left: 5px solid #2e8b57;
+            border-radius: 5px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        /* ===================================================================
+           4. STYLING GALERI
+           =================================================================== */
+        #galeri-section header {
+            background-color: #333; 
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: static;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* ===================================================================
+           5. STYLING MATERI INTERAKTIF (Quiz) - Diubah menjadi tema terang
+           =================================================================== */
+        #materi-interaktif {
+            background: #f7f9fc; /* Latar belakang terang (biru muda sangat pucat) */
+            color: #333; /* Warna teks gelap */
+            border-radius: 12px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        #materi-interaktif h2 { color: #4a90e2; /* Biru terang */ }
+        #materi-interaktif p { color: #555; /* Teks paragraf lebih gelap */ }
+        
+        #materi-interaktif .card {
+            background: white; /* Latar belakang kartu putih */
+            border: 1px solid #e0e0e0; 
+            border-radius: 14px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        /* Tombol Aksi & Kuis Styling */
+        .action-buttons { display: flex; gap: 10px; margin-top: 15px; }
+        .link-btn { display: inline-block; padding: 10px 18px; border-radius: 8px; text-decoration: none; transition: background 0.3s ease; color: #fff; border: none; cursor: pointer; }
+        .link-btn.secondary { background: #4a90e2; } /* Biru */
+        .link-btn.primary { background: #f97316; } /* Oranye */
+
+        .quiz-container { display: none; margin-top: 20px; }
+        
+        /* Styling Opsi Kuis */
+        .quiz-option {
+            display: block; 
+            margin: 10px 0; 
+            padding: 10px; 
+            background: #eef2f6; /* Latar belakang opsi terang */
+            color: #333; /* Warna teks opsi gelap */
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: background 0.3s ease, border 0.3s ease;
+            text-align: left; 
+            width: 100%;
+            border: 2px solid transparent; 
+            position: relative;
+        }
+        
+        /* TANDA JAWABAN TELAH DIPILIH (SEBELUM SUBMIT) */
+        .quiz-option.selected {
+            background: #fff8e1; /* Warna latar sangat terang (krem) */
+            border: 2px solid #ffdd57; /* Garis tepi kuning-emas */
+        }
+
+        /* Menambahkan ikon ceklis (✓) pada opsi yang dipilih */
+        .quiz-option.selected::after {
+            content: '✓';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            color: #ffdd57; 
+            font-weight: bold;
+        }
+
+        /* Styling hasil (setelah submit) */
+        .quiz-option.correct {background: #e8f5e9; color: #2e7d32; border-color: #4caf50;} /* Hijau muda */
+        .quiz-option.correct::after { content: '✅'; color: #2e7d32;}
+
+        .quiz-option.incorrect {background: #ffebee; color: #c62828; border-color: #f44336;} /* Merah muda */
+        .quiz-option.incorrect::after { content: '❌'; color: #c62828;}
+        
+        .quiz-result {margin-top: 20px; padding: 15px; background: white; border-radius: 8px; display: none; border: 1px solid #e0e0e0;}
+        
+        /* ===================================================================
+           6. FOOTER
+           =================================================================== */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        /* Media Queries Responsif */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-contact {
+                margin-top: 10px;
+                text-align: center;
+            }
+            nav a { margin: 0 8px; }
+            .action-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div class="header-title">
+                <h1>Website Pendidikan Matematika</h1>
+            </div>
+            <div class="header-contact">
+                Kontak Kami:
+                <a href="tel:+62247608020">📞 +62 24 7608020</a> 
+                <a href="mailto:matematika@unimus.ac.id">✉️ matematika@unimus.ac.id</a>
+            </div>
+        </div>
+        <nav>
+            <a href="#beranda">Beranda</a>
+            <a href="#materi-lain">Materi Statistika</a>
+            <a href="#galeri">Galeri</a>
+            <a href="#materi-interaktif">Materi Interaktif</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <section id="beranda" class="section-padding">
+            <div class="hero">
+                <h1>Selamat Datang di Pendidikan Matematika UNIMUS</h1>
+                <p>Pendidikan Matematika UNIMUS Terakreditasi Unggul dan Berakhlak Karimah Serta Bereputasi Internas</p>
+            </div>
+        </section>
+        
+        <section id="materi-lain" class="section-padding">
+            <h2>MATERI STATISTIKA 1</h2>
+            <P>
+                Statistika adalah ilmu yang mempelajari cara mengumpulkan, menganalisis, menginterpretasikan, dan menyajikan data numerik. Ilmu ini berperan penting dalam penelitian, bisnis, hingga kehidupan sehari-hari untuk memahami dan mengambil kesimpulan dari data yang kompleks.
+            </P>
+        </section>
+
+        <section id="galeri" class="section-padding">
+            <div id="galeri-section">
+                <header>
+                    <h1>Galeri Gambar Menarik</h1>
+                    <p>Inspirasi visual dari seluruh dunia</p>
+                </header>
+              
+                <div class="gallery">
+                  <img src="nature.jpg" alt="Alam">
+                  <img src="green-city-1_ratio-16x9.jpg" alt="Kota Hijau">
+                  <img src="tekno.jpg" alt="Teknologi">
+                  <img src="lumba.jpg" alt="Hewan Laut">
+                  <img src="space.jpg" alt="Antariksa">
+                  <img src="art.jpeg" alt="Seni Abstrak">
+                  <img src="people.jpg" alt="Manusia">
+                  <img src="food.jpg" alt="Makanan">
+                </div>
+            </div>
+        </section>
+
+        <section id="materi-interaktif" class="section-padding">
+            <h2>Materi Pembelajaran dan Uji Pemahaman</h2>
+            <p style="margin-bottom: 20px;">Akses materi, lalu kerjakan kuis 5 soal di bawah setiap kartu untuk menguji pemahaman Anda.</p>
+
+            <div class="card">
+                <h3>1. Diagram Batang</h3>
+                <p>Diagram batang (atau bar chart) adalah jenis diagram yang digunakan untuk menampilkan data dalam bentuk batang persegi panjang, di mana panjang setiap batang mewakili nilai dari suatu kategori.</p>
+                
+                <div class="action-buttons">
+                    <a href="https://url-shortener.me/86KX" target="_blank" class="link-btn secondary">Lihat Materi di Canva</a>
+                    <button id="start-quiz-btn" class="link-btn primary">Mulai Kuis (5 soal)</button>
+                </div>
+
+                <div id="quiz-content" class="quiz-container">
+                    <h4 style="margin-top: 30px; color: #4a90e2;">Game Quiz: Uji Pengetahuanmu!</h4>
+                    <p>Uji pengetahuanmu tentang diagram batang dengan 5 soal pilihan ganda di bawah ini. Jawab semua pertanyaan, lalu klik "Kirim Jawaban" untuk lihat skor dan pembetulan.</p>
+                    
+                    <div class="quiz-question" id="q1">
+                        <p><strong>Pertanyaan 1:</strong> Apa yang diwakili oleh panjang batang dalam diagram batang?</p>
+                        <button class="quiz-option" data-correct="false">a) Jumlah kategori</button>
+                        <button class="quiz-option" data-correct="true">b) Nilai dari kategori</button>
+                        <button class="quiz-option" data-correct="false">c) Warna diagram</button>
+                    </div>
+                    
+                    <div class="quiz-question" id="q2">
+                        <p><strong>Pertanyaan 2:</strong> Dalam diagram batang, sumbu horizontal biasanya menunjukkan?</p>
+                        <button class="quiz-option" data-correct="true">a) Kategori data</button>
+                        <button class="quiz-option" data-correct="false">b) Nilai numerik</button>
+                        <button class="quiz-option" data-correct="false">c) Persentase</button>
+                    </div>
+                    
+                    <div class="quiz-question" id="q3">
+                        <p><strong>Pertanyaan 3:</strong> Diagram batang cocok digunakan untuk data apa?</p>
+                        <button class="quiz-option" data-correct="false">a) Data kontinyu</button>
+                        <button class="quiz-option" data-correct="true">b) Data kategorikal</button>
+                        <button class="quiz-option" data-correct="false">c) Data waktu</button>
+                    </div>
+                    
+                    <div class="quiz-question" id="q4">
+                        <p><strong>Pertanyaan 4:</strong> Apa fungsi utama diagram batang?</p>
+                        <button class="quiz-option" data-correct="true">a) Membandingkan nilai antar kategori</button>
+                        <button class="quiz-option" data-correct="false">b) Menunjukkan tren waktu</button>
+                        <button class="quiz-option" data-correct="false">c) Menggambarkan distribusi frekuensi</button>
+                    </div>
+                    
+                    <div class="quiz-question" id="q5">
+                        <p><strong>Pertanyaan 5:</strong> Jika ada dua batang dengan panjang sama, apa artinya?</p>
+                        <button class="quiz-option" data-correct="false">a) Kategori tersebut identik</button>
+                        <button class="quiz-option" data-correct="true">b) Nilai kategori tersebut sama</button>
+                        <button class="quiz-option" data-correct="false">c) Diagram tersebut salah</button>
+                    </div>
+                    
+                    <div class="quiz-result" id="quiz-result">
+                        <p>Skor Anda: <span class="quiz-score" id="quiz-score">0/5</span></p>
+                        <p id="quiz-feedback"></p>
+                    </div>
+                    
+                    <button id="submit-quiz" class="link-btn primary" style="margin-top: 20px;">Kirim Jawaban</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        &copy; 2025 Website Pendidikan Matematika. Semua hak dilindungi.
+    </footer>
+
+    <script>
+        // ===================================================================
+        // JAVASCRIPT UNTUK FUNGSIONALITAS KUIS
+        // ===================================================================
+        let userAnswers = {};
+
+        // 1. Event listener untuk TOMBOL MULAI KUIS
+        document.getElementById('start-quiz-btn').addEventListener('click', function() {
+            const quizContent = document.getElementById('quiz-content');
+            quizContent.style.display = 'block'; // Tampilkan kuis
+            
+            // Scroll ke bagian kuis
+            quizContent.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // 2. Event listener untuk setiap opsi kuis
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const questionId = this.closest('.quiz-question').id;
+                // Reset pilihan sebelumnya
+                document.querySelectorAll(`#${questionId} .quiz-option`).forEach(opt => {
+                    // Hapus semua kelas hasil dan seleksi sebelumnya
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                // Tandai opsi yang dipilih
+                this.classList.add('selected'); // <<< MENAMBAHKAN TANDA PILIH
+                // Simpan pilihan
+                userAnswers[questionId] = {
+                    selected: this.textContent,
+                    isCorrect: this.dataset.correct === 'true'
+                };
+            });
+        });
+
+        // 3. Event listener untuk tombol submit
+        document.getElementById('submit-quiz').addEventListener('click', function() {
+            let score = 0;
+            let totalQuestions = 5;
+            
+            const questions = ['q1', 'q2', 'q3', 'q4', 'q5'];
+            questions.forEach((qId) => {
+                const answer = userAnswers[qId];
+                const options = document.querySelectorAll(`#${qId} .quiz-option`);
+                
+                // Hapus kelas seleksi sebelumnya (karena sekarang menampilkan hasil)
+                options.forEach(opt => opt.classList.remove('selected', 'correct', 'incorrect'));
+
+                // Tampilkan hasil
+                if (answer) {
+                    if (answer.isCorrect) {
+                        score++;
+                        // Cari dan beri warna HIJAU pada jawaban BENAR
+                        document.querySelector(`#${qId} [data-correct="true"]`).classList.add('correct');
+                    } else {
+                        // Warnai yang salah (pilihan user) dengan MERAH
+                        options.forEach(opt => {
+                            if (opt.textContent === answer.selected) opt.classList.add('incorrect');
+                        });
+                        // Tunjukkan jawaban yang benar dengan HIJAU
+                        document.querySelector(`#${qId} [data-correct="true"]`).classList.add('correct');
+                    }
+                } else {
+                    // Tunjukkan jawaban yang benar untuk yang tidak dijawab
+                    document.querySelector(`#${qId} [data-correct="true"]`).classList.add('correct');
+                }
+                
+                // Nonaktifkan semua tombol setelah submit
+                options.forEach(opt => opt.disabled = true);
+            });
+
+            // Tampilkan skor akhir
+            document.getElementById('quiz-score').textContent = score + '/' + totalQuestions;
+            document.getElementById('quiz-feedback').innerHTML = `Anda menjawab **${score} dari ${totalQuestions}** pertanyaan dengan benar. Periksa jawaban Anda yang ditandai di atas.`; 
+            document.getElementById('quiz-result').style.display = 'block';
+            this.disabled = true; // Nonaktifkan tombol submit
+        });
+    </script>
+</body>
+</html>
